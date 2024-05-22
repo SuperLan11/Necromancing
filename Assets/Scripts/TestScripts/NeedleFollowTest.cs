@@ -4,19 +4,19 @@ using UnityEngine;
 
 public class NeedleFollowTest : MonoBehaviour
 {
-    [SerializeField] private GameObject cursor;
-    [SerializeField] private float speed = 1.5f;
+    [SerializeField] private Camera mainCamera;
+    [SerializeField] private float speed = 5f;
 
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
 
-    // Update is called once per frame
     void Update()
     {
-        transform.position = Vector3.MoveTowards(transform.position, cursor.transform.position, speed * Time.deltaTime);
-        transform.forward = cursor.transform.position - transform.position;
+        // Raycast checking for mouse position hitting a floor or something with a collider
+        Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
+
+        // Move the needle towards the hit point of the raycase
+        if (Physics.Raycast(ray, out RaycastHit hit)) {
+            transform.position = Vector3.MoveTowards(transform.position, hit.point, speed * Time.deltaTime);
+            transform.forward = hit.point - transform.position;
+        }
     }
 }
