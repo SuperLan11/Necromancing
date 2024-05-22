@@ -38,7 +38,7 @@ public class Player : MonoBehaviour
         {
             newVelocity += isometricRight * speed;
         }
-        // Update the Rigidbody's velocity
+        
         rb.velocity = newVelocity;
     }
 }
