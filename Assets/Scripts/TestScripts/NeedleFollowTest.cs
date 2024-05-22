@@ -15,7 +15,7 @@ public class NeedleFollowTest : MonoBehaviour
 
 
     void Update()
-    {   
+    {
         // Raycast checking for mouse position hitting a floor or something with a collider
         Ray ray = mainCamera.ScreenPointToRay(Input.mousePosition);
 
@@ -32,9 +32,9 @@ public class NeedleFollowTest : MonoBehaviour
                 //Debug.Log("Left Mouse Button Clicked");
                 Vector3 direction = (hit.point - transform.position).normalized;
                 direction.y = 0;
-                rb.velocity = direction * speed;
+                rb.velocity = direction * speed;                
             }
-        }
+        }        
 
         //forces yPos and yRot to always be zero
         //transform.position = new Vector3(transform.position.x, yPos, transform.position.z);
