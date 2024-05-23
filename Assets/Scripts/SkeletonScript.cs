@@ -8,6 +8,7 @@ public class SkeletonScript : EnemyScript
     void Start()
     {
         enemyObj = GameObject.Find("Skeleton");
+        enemySFX = GameObject.Find("SkeletonHit_SFX").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

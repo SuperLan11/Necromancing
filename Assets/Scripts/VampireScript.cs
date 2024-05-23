@@ -8,6 +8,7 @@ public class VampireScript : EnemyScript
     void Start()
     {
         enemyObj = GameObject.Find("Vampire");
+        enemySFX = GameObject.Find("ZombieVampireHit_SFX").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame

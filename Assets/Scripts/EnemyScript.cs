@@ -4,26 +4,25 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
-    public Rigidbody rigidBody;
+    //public Rigidbody rigidBody;
     protected GameObject enemyObj;
-    
-    //public float startX;
-    //public float startY;
-    //public float startZ;
+    public AudioSource enemySFX;
 
     // Start is called before the first frame update
     void Start()
     {
-        //rigidBody.position = new Vector3(startX, startY, startZ);
-    }
+        
+    }    
 
     private void OnCollisionEnter(Collision collision)
     {
         Debug.Log("collision detected");
         
-        GameObject needleObj = GameObject.Find("Needle");
-        if(collision.gameObject == needleObj){         
-            Destroy(enemyObj);
+        GameObject needleObj = GameObject.Find("Needle");     
+        if (collision.gameObject == needleObj) {            
+            enemySFX.Play();
+            Destroy(enemyObj);            
+
             ScoreScript.AddScore(1);
         }
     }
