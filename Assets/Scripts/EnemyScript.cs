@@ -5,8 +5,12 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
     //public Rigidbody rigidBody;
-    protected GameObject enemyObj;
+    public GameObject playerObj;
+    public GameObject enemyObj;
     public AudioSource enemySFX;
+
+    protected int enemyHealth;
+    protected float enemyMovementSpeed;
 
     // Start is called before the first frame update
     void Start()
@@ -20,10 +24,13 @@ public class EnemyScript : MonoBehaviour
         
         GameObject needleObj = GameObject.Find("Needle");     
         if (collision.gameObject == needleObj) {            
+            enemyHealth--;
             enemySFX.Play();
-            Destroy(enemyObj);            
-
             ScoreScript.AddScore(1);
+
+            if(enemyHealth <= 0){
+                EnemyDeath();
+            }
         }
     }
 
@@ -31,5 +38,9 @@ public class EnemyScript : MonoBehaviour
     void Update()
     {
         
+    }
+
+    void EnemyDeath(){
+        Destroy(enemyObj);
     }
 }
