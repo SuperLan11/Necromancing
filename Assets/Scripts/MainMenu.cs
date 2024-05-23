@@ -9,10 +9,6 @@ public class MainMenu : MonoBehaviour
         SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex+1);
     }
 
-    public void OptionsMenu(){
-        Debug.Log("options button has been pressed");
-    }
-
     public void QuitGame(){
         Application.Quit();
     }
