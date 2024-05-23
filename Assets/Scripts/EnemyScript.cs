@@ -5,7 +5,7 @@ using UnityEngine;
 public class EnemyScript : MonoBehaviour
 {
     public Rigidbody rigidBody;
-    public GameObject enemyObj;
+    protected GameObject enemyObj;
     
     //public float startX;
     //public float startY;
@@ -21,10 +21,10 @@ public class EnemyScript : MonoBehaviour
     {
         Debug.Log("collision detected");
         
-        GameObject needleObj = GameObject.Find("TestNeedle");
+        GameObject needleObj = GameObject.Find("Needle");
         if(collision.gameObject == needleObj){         
             Destroy(enemyObj);
-            Debug.Log("ENEMY DEFEATED");
+            ScoreScript.AddScore(1);
         }
     }
 
