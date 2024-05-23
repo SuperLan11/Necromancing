@@ -24,6 +24,7 @@ public class Player : MonoBehaviour
         // Check if any of the WASD keys are held down and update the velocity accordingly
         if (Input.GetKey(KeyCode.W))
         {
+            Debug.Log("try9ing to move up");
             newVelocity += isometricUp * speed;
         }
         if (Input.GetKey(KeyCode.A))
