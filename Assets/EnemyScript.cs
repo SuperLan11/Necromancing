@@ -19,10 +19,10 @@ public class EnemyScript : MonoBehaviour
 
     private void OnCollisionEnter(Collision collision)
     {
-        GameObject playerObj = GameObject.Find("Player");
+        GameObject needleObj = GameObject.Find("TestNeedle");
         Debug.Log("collision detected");
 
-        if(collision.gameObject == playerObj){         
+        if(collision.gameObject == needleObj){         
             Destroy(enemyObj);
             Debug.Log("DELETING PLAYER");
         }
