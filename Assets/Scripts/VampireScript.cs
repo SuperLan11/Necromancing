@@ -7,7 +7,7 @@ public class VampireScript : EnemyScript
 {    
     //state machine goes BRRRRRRRRRRRRRRRRRRRR
     //Moves, then TPs, then cooldown, then dashes-attacks towards player, then cooldown, then repeat
-    enum VampireState
+    public enum VampireState
     {
         MOVING,
         TELEPORTING,
@@ -16,7 +16,7 @@ public class VampireScript : EnemyScript
         SECOND_COOLDOWN,
     }
 
-    private VampireState state;
+    public VampireState state;
     
     private const float MAX_MOVEMENT_TIMER = 3f;
     private const float MAX_FIRST_COOLDOWN_TIMER = 1.5f, MAX_SECOND_COOLDOWN_TIMER = 1.0f;
@@ -60,9 +60,10 @@ public class VampireScript : EnemyScript
             }
         }
 
+        //teleporting is only for a single frame
         if (state == VampireState.TELEPORTING){
             //have logic here to tp vampire to player
-            float xOffset = Random.Range(-0.5f, 0.5f), zOffset = Random.Range(-0.5f, 0.5f);
+            float xOffset = Random.Range(-1.0f, 1.0f), zOffset = Random.Range(-1.0f, 1.0f);
             xOffset += playerObj.transform.position.x;
             zOffset += playerObj.transform.position.z;
 
@@ -111,22 +112,17 @@ public class VampireScript : EnemyScript
 
         //logs the changing of state
         if (initialState != state){
-            Debug.Log("State has changed to " + state);   
+            //Debug.Log("State has changed to " + state);   
         }
-    }
-
-    void Move(){
-        ChangeDirection();
-        enemyObj.GetComponent<Rigidbody>().velocity = enemyObj.transform.forward * enemyMovementSpeed;
     }
     
     void Dash(){
         enemyObj.GetComponent<Rigidbody>().velocity = enemyObj.transform.forward * enemyMovementSpeed;
     }
 
-    void ChangeDirection(){
-        Vector3 direction = (playerObj.transform.position - enemyObj.transform.position).normalized;
-        direction.y = 0;
-        enemyObj.transform.forward = direction;
+    /*
+    VampireState GetState(){
+        return state;
     }
-}
+    */
+};

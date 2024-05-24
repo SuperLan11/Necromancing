@@ -15,10 +15,6 @@ public class SkeletonScript : EnemyScript
     // Update is called once per frame
     void Update()
     {
-        Vector3 direction = (playerObj.transform.position - enemyObj.transform.position).normalized;
-        direction.y = 0;
-        enemyObj.transform.forward = direction;
-
-        enemyObj.GetComponent<Rigidbody>().velocity = direction * enemyMovementSpeed;
+        Move();
     }
 }

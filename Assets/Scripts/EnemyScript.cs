@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting;
 using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
@@ -26,7 +27,11 @@ public class EnemyScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        //Debug.Log("collision detected");
+        //prevents vampire immediately killing player when teleporting
+        if (VampireInstaKill()){
+            Debug.Log(GetState());
+            return;
+        }
 
         GameObject needleObj = GameObject.Find("Needle");
 
@@ -50,6 +55,12 @@ public class EnemyScript : MonoBehaviour
     //this is jank but it's a game jam
     private void OnTriggerStay(Collider collision)
     {
+        //prevents vampire immediately killing player when teleporting
+        if (VampireInstaKill()){
+            Debug.Log(GetState());
+            return;
+        }
+        
         if (currentCooldown <= 0){
             currentCooldown = MAX_JANK_COOLDOWN;
 
@@ -86,5 +97,39 @@ public class EnemyScript : MonoBehaviour
 
     void EnemyDeath(){
         Destroy(enemyObj);
+    }
+
+    protected void ChangeDirection(){
+        Vector3 direction = (playerObj.transform.position - enemyObj.transform.position).normalized;
+        direction.y = 0;
+        enemyObj.transform.forward = direction;
+    }
+
+    protected void Move(){
+        ChangeDirection();
+        enemyObj.GetComponent<Rigidbody>().velocity = enemyObj.transform.forward * enemyMovementSpeed;
+    }
+
+
+    //this crap is here for inheritance reasons
+    
+    enum VampireState
+        {
+            MOVING,
+            TELEPORTING,
+            FIRST_COOLDOWN,
+            ATTACK,
+            SECOND_COOLDOWN,
+        }
+    
+    //! ONLY CALL THIS METHOD IF YOU KNOW FOR SURE IT'S A VAMPIRE OBJ
+    VampireState GetState(){
+        return (VampireState)enemyObj.GetComponent<VampireScript>().state;
+    }
+
+    bool VampireInstaKill(){
+        return (enemyObj.GetComponent<VampireScript>() != null &&
+                (enemyObj.GetComponent<VampireScript>().GetState() == VampireState.TELEPORTING ||
+                enemyObj.GetComponent<VampireScript>().GetState() == VampireState.FIRST_COOLDOWN));
     }
 };
