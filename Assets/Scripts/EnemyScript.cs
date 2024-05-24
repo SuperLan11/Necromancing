@@ -26,7 +26,7 @@ public class EnemyScript : MonoBehaviour
 
     private void OnTriggerEnter(Collider collision)
     {
-        Debug.Log("collision detected");
+        //Debug.Log("collision detected");
 
         GameObject needleObj = GameObject.Find("Needle");
 
@@ -53,7 +53,7 @@ public class EnemyScript : MonoBehaviour
         if (currentCooldown <= 0){
             currentCooldown = MAX_JANK_COOLDOWN;
 
-            Debug.Log("collision detected");
+            //Debug.Log("collision detected");
 
             GameObject needleObj = GameObject.Find("Needle");
             if (collision.gameObject == needleObj) {

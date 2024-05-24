@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 
 public class Player : MonoBehaviour
 {
-
+    private bool debugMode = false;
     public float speed = 5f; // Speed at which the object moves
     [SerializeField] private Rigidbody rb;
 
@@ -16,6 +16,12 @@ public class Player : MonoBehaviour
     private Vector3 isometricLeft = new Vector3(-1, 0, -1).normalized;
     private Vector3 isometricUp = new Vector3(-1, 0, 1).normalized;
     private Vector3 isometricDown = new Vector3(1, 0, -1).normalized;
+
+    void Start(){
+        if(debugMode){
+            playerHealth = int.MaxValue;
+        }
+    }
 
     //this is all ChatGPT BS, but Unity's input system is stupid so I don't care.
     void Update()
@@ -47,7 +53,7 @@ public class Player : MonoBehaviour
 
     public void DamagePlayer(int damage){
         playerHealth -= damage;
-        Debug.Log(playerHealth);
+        //Debug.Log(playerHealth);
 
         if(playerHealth <= 0){
             //reloads current level
