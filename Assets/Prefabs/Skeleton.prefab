@@ -374,7 +374,7 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
@@ -394,7 +394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   playerObj: {fileID: 0}
   enemyObj: {fileID: 4312425674922714622}
-  enemySFX: {fileID: 7813274178520798703}
+  enemySFX: {fileID: 0}
 --- !u!54 &2037331024691155328
 Rigidbody:
   m_ObjectHideFlags: 0
