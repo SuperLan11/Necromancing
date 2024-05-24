@@ -16,7 +16,7 @@ public class EnemyScript : MonoBehaviour
     protected Player playerScript;
 
     private const int MAX_JANK_COOLDOWN = 60;
-    private int currentCooldown = 60;
+    private int currentCooldown = 90;
 
     // Start is called before the first frame update
     void Start()
