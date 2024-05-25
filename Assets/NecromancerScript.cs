@@ -5,23 +5,35 @@ using UnityEngine;
 public class NecromancerScript: EnemyScript
 {    
     int spawnTimer = 0;
-    // represents enemy type. increments up to 2, then resets to 0, i'll probably improve readability later
-    int enemyIdentifier = 0;
+    int timeToSpawn = 1000;    
     AudioSource spawnSFX;
     private bool spawnLeft = true;
+
+    // represents enemy type. increments up to 2, then resets to 0, i'll probably improve readability later
+    int enemyIdentifier = 0;
+    float summonLength = 0;
 
     [SerializeField] private GameObject skeletonPrefab;
     [SerializeField] private GameObject zombiePrefab;
     [SerializeField] private GameObject vampirePrefab;
 
+    private GameObject[] enemyTypes = { null, null, null };
+
+    private List<GameObject> enemiesBeingSummoned = new List<GameObject>();
+
     // Start is called before the first frame update
     void Start()
     {
         enemySFX = GameObject.Find("SkeletonHit_SFX").GetComponent<AudioSource>();
+        spawnSFX = GameObject.Find("enemySpawn_SFX").GetComponent<AudioSource>();
         // need to get spawn sfx
         //spawnSFX = GameObject.Find("___").GetComponent<AudioSource>();
         enemyHealth = 10;
         enemyMovementSpeed = 0f;
+
+        enemyTypes[0] = skeletonPrefab;
+        enemyTypes[1] = zombiePrefab;
+        enemyTypes[2] = vampirePrefab;
     }
     
     // wip
@@ -40,28 +52,31 @@ public class NecromancerScript: EnemyScript
         }
         spawnLeft = !spawnLeft;
 
-        switch(enemyIdentifier)
+        if (enemyIdentifier == 1)
         {
-            case 0:                
-                Instantiate(skeletonPrefab, enemyLoc, Quaternion.identity);
-                break;
-            case 1:                
-                Instantiate(zombiePrefab, enemyLoc, Quaternion.identity);
-                break;
-            case 2:                
-                Instantiate(vampirePrefab, enemyLoc, Quaternion.identity);
-                break;
+            // lower zombie y since it is shorter than the other enemies
+            enemyLoc.y -= 1;
         }
+
+        // once enemy is spawning, prevent their movement, increase y from -5 to 5 (hard code), then allow movement                        
+        GameObject enemyObj = Instantiate(enemyTypes[enemyIdentifier], enemyLoc, Quaternion.identity);
+        enemyObj.GetComponent<EnemyScript>().isSpawning = true;
+        //enemiesBeingSummoned
+
+        // keep array/list of spawning enemies? once summonTimer of enemy reaches summonTime, change isSpawning and remove from list
     }
 
     // Update is called once per frame
     void Update()
     {        
         spawnTimer++;
-        if (spawnTimer >= 100)
+        Debug.Log("delta time: " + Time.deltaTime);
+        // delta time is ~0.01
+        // want 1 second spawns, 1/0.01
+        if (spawnTimer >= timeToSpawn/(600*Time.deltaTime))
         {
             SpawnEnemy(enemyIdentifier);
-            //spawnSFX.Play();
+            spawnSFX.Play();
 
             if (enemyIdentifier < 2)
             {
@@ -73,6 +88,6 @@ public class NecromancerScript: EnemyScript
             }
 
             spawnTimer = 0;
-        }      
+        }                
     }
 }

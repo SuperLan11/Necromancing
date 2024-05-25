@@ -16,6 +16,7 @@ public class ZombieScript : EnemyScript
     // Update is called once per frame
     void Update()
     {
-        Move();
+        if(!isSpawning)
+            Move();
     }
 }

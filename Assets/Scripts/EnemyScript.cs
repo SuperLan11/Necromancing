@@ -19,6 +19,9 @@ public class EnemyScript : MonoBehaviour
     private const int MAX_JANK_COOLDOWN = 60;
     private int currentCooldown = 90;
 
+    // temporarily stops enemy while being summoned by necromancer
+    public bool isSpawning = false;
+
     // Start is called before the first frame update
     void Start()
     {

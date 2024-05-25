@@ -45,6 +45,9 @@ public class VampireScript : EnemyScript
     // Update is called once per frame
     void Update()
     {
+        if (isSpawning)
+            return;
+
         VampireState initialState = state;
         
         //Don't put return statements cause it screws with debugging
