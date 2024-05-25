@@ -395,6 +395,8 @@ MonoBehaviour:
   playerObj: {fileID: 0}
   enemyObj: {fileID: 4312425674922714622}
   enemySFX: {fileID: 0}
+  isSpawning: 0
+  summonTimer: 0
 --- !u!54 &2037331024691155328
 Rigidbody:
   m_ObjectHideFlags: 0

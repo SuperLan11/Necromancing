@@ -9,14 +9,36 @@ public class ZombieScript : EnemyScript
     {
         enemyHealth = 5;
         enemyMovementSpeed = 1f;
-
         playerObj = GameObject.Find("Player");
     }
 
     // Update is called once per frame
     void Update()
     {
-        if(!isSpawning)
+        if (isSpawning)
+        {
+            summonTimer += Time.deltaTime;
+
+            Vector3 raisedPosition = transform.position;
+
+            float yDiff = (-1.5f - (-8f));
+
+            // inner expression after y diff is 1 when accumulated time equals summonLength
+            float yIncrement = (yDiff * (Time.deltaTime / NecromancerScript.summonLength));
+            raisedPosition.y += yIncrement;
+
+            transform.position = raisedPosition;
+        }
+        else
+        {
             Move();
+        }
+        
+        if (summonTimer >= NecromancerScript.summonLength)
+        {
+            //Debug.Log("enemy can move");
+            summonTimer = 0f;
+            isSpawning = false;
+        }
     }
 }

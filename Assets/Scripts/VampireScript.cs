@@ -38,15 +38,36 @@ public class VampireScript : EnemyScript
         enemyMovementSpeed = SLOW_SPEED;
 
         state = VampireState.MOVING;
+        
+        playerObj = GameObject.Find("Player");        
 
-        playerObj = GameObject.Find("Player");
+        enemySFX = GameObject.Find("SkeletonHit_SFX").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
     void Update()
-    {
+    {        
         if (isSpawning)
+        {
+            summonTimer += Time.deltaTime;
+            if (summonTimer >= NecromancerScript.summonLength)
+            {                
+                summonTimer = 0f;
+                isSpawning = false;
+            }
+
+            Vector3 raisedPosition = transform.position;
+
+            float yDiff = (-0.3f - (-8f));
+
+            // inner expression after y diff is 1 when accumulated time equals summonLength
+            float yIncrement = (yDiff * (Time.deltaTime / NecromancerScript.summonLength));
+            raisedPosition.y += yIncrement;
+
+            transform.position = raisedPosition;
+
             return;
+        }
 
         VampireState initialState = state;
         

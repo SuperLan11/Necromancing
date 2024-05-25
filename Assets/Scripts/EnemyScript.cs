@@ -21,12 +21,12 @@ public class EnemyScript : MonoBehaviour
 
     // temporarily stops enemy while being summoned by necromancer
     public bool isSpawning = false;
+    protected float summonTimer;
 
     // Start is called before the first frame update
     void Start()
     {
-        //playerObj = GameObject.Find("Player");
-        //Debug.Log(playerObj);
+        //playerObj = GameObject.Find("Player");        
         playerScript = playerObj.GetComponent<Player>();
     }
 
@@ -97,7 +97,7 @@ public class EnemyScript : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
+        
     }
 
     void EnemyDeath(){
