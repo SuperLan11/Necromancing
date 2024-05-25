@@ -110,7 +110,7 @@ public class VampireScript : EnemyScript
 
         if (state == VampireState.ATTACK){
             if (needsToChangeDirection){
-                ChangeDirection();
+                FacePlayer();
                 needsToChangeDirection = false;
             }
             

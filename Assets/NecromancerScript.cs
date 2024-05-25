@@ -28,7 +28,10 @@ public class NecromancerScript: EnemyScript
     {
         enemySFX = GameObject.Find("SkeletonHit_SFX").GetComponent<AudioSource>();
         spawnSFX = GameObject.Find("enemySpawn_SFX").GetComponent<AudioSource>();
-        
+
+        playerObj = GameObject.Find("Player");
+        enemyObj = GameObject.Find("Necromancer");
+
         enemyHealth = 10;
         enemyMovementSpeed = 0f;
 
@@ -78,7 +81,9 @@ public class NecromancerScript: EnemyScript
 
     // Update is called once per frame
     void Update()
-    {        
+    {
+        FacePlayer();
+
         spawnTimer += Time.deltaTime;
                 
         if (spawnTimer >= timeToSpawn)

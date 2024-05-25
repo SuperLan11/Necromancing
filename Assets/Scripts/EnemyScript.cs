@@ -104,14 +104,14 @@ public class EnemyScript : MonoBehaviour
         Destroy(enemyObj);
     }
 
-    protected void ChangeDirection(){
+    protected void FacePlayer(){
         Vector3 direction = (playerObj.transform.position - enemyObj.transform.position).normalized;
         direction.y = 0;
         enemyObj.transform.forward = direction;
     }
 
     protected void Move(){
-        ChangeDirection();
+        FacePlayer();
         enemyObj.GetComponent<Rigidbody>().velocity = enemyObj.transform.forward * enemyMovementSpeed;
     }
 
