@@ -2683,6 +2683,105 @@ PrefabInstance:
     m_AddedGameObjects: []
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4a192243d6eb4744c9553d31fd4f2538, type: 3}
+--- !u!1001 &1819746705
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    serializedVersion: 3
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 3500142301776887620, guid: f8ac5f5d80c710845a1f42d4935443f0, type: 3}
+      propertyPath: m_LocalScale.x
+      value: 0.72423
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500142301776887620, guid: f8ac5f5d80c710845a1f42d4935443f0, type: 3}
+      propertyPath: m_LocalScale.y
+      value: 0.72423
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500142301776887620, guid: f8ac5f5d80c710845a1f42d4935443f0, type: 3}
+      propertyPath: m_LocalScale.z
+      value: 0.72423
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500142301776887620, guid: f8ac5f5d80c710845a1f42d4935443f0, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: -7.815
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500142301776887620, guid: f8ac5f5d80c710845a1f42d4935443f0, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 1.1
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500142301776887620, guid: f8ac5f5d80c710845a1f42d4935443f0, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -20.845
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500142301776887620, guid: f8ac5f5d80c710845a1f42d4935443f0, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: -0.1270502
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500142301776887620, guid: f8ac5f5d80c710845a1f42d4935443f0, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500142301776887620, guid: f8ac5f5d80c710845a1f42d4935443f0, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.9918963
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500142301776887620, guid: f8ac5f5d80c710845a1f42d4935443f0, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500142301776887620, guid: f8ac5f5d80c710845a1f42d4935443f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500142301776887620, guid: f8ac5f5d80c710845a1f42d4935443f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 194.598
+      objectReference: {fileID: 0}
+    - target: {fileID: 3500142301776887620, guid: f8ac5f5d80c710845a1f42d4935443f0, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 4312425674922714622, guid: f8ac5f5d80c710845a1f42d4935443f0, type: 3}
+      propertyPath: m_Name
+      value: Necromancer
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+    m_RemovedGameObjects: []
+    m_AddedGameObjects: []
+    m_AddedComponents:
+    - targetCorrespondingSourceObject: {fileID: 4312425674922714622, guid: f8ac5f5d80c710845a1f42d4935443f0, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1819746707}
+  m_SourcePrefab: {fileID: 100100000, guid: f8ac5f5d80c710845a1f42d4935443f0, type: 3}
+--- !u!1 &1819746706 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 4312425674922714622, guid: f8ac5f5d80c710845a1f42d4935443f0, type: 3}
+  m_PrefabInstance: {fileID: 1819746705}
+  m_PrefabAsset: {fileID: 0}
+--- !u!64 &1819746707
+MeshCollider:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1819746706}
+  m_Material: {fileID: 0}
+  m_IncludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_ExcludeLayers:
+    serializedVersion: 2
+    m_Bits: 0
+  m_LayerOverridePriority: 0
+  m_IsTrigger: 0
+  m_ProvidesContacts: 0
+  m_Enabled: 1
+  serializedVersion: 5
+  m_Convex: 0
+  m_CookingOptions: 30
+  m_Mesh: {fileID: 0}
 --- !u!1 &1868954733
 GameObject:
   m_ObjectHideFlags: 0
@@ -3148,3 +3247,4 @@ SceneRoots:
   - {fileID: 972638565}
   - {fileID: 595615792}
   - {fileID: 784186877}
+  - {fileID: 1819746705}

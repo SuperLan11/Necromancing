@@ -9,6 +9,8 @@ public class ZombieScript : EnemyScript
     {
         enemyHealth = 5;
         enemyMovementSpeed = 1f;
+
+        playerObj = GameObject.Find("Player");
     }
 
     // Update is called once per frame

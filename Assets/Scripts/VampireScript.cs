@@ -38,6 +38,8 @@ public class VampireScript : EnemyScript
         enemyMovementSpeed = SLOW_SPEED;
 
         state = VampireState.MOVING;
+
+        playerObj = GameObject.Find("Player");
     }
 
     // Update is called once per frame

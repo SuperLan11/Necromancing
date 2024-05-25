@@ -10,6 +10,8 @@ public class SkeletonScript : EnemyScript
         enemySFX = GameObject.Find("SkeletonHit_SFX").GetComponent<AudioSource>();
         enemyHealth = 1;
         enemyMovementSpeed = 10f;
+
+        playerObj = GameObject.Find("Player");
     }
 
     // Update is called once per frame
