@@ -5,7 +5,8 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
-    //public Rigidbody rigidBody;
+    public Rigidbody rigidBody;
+
     public GameObject playerObj;
     public GameObject enemyObj;
     public AudioSource enemySFX;
@@ -39,8 +40,22 @@ public class EnemyScript : MonoBehaviour
         }
 
         GameObject needleObj = GameObject.Find("Needle");
+        GameObject collidedObj = collision.gameObject;        
 
-        if (collision.gameObject == needleObj) {
+        // force the enemy to stop upon hitting wall since they're both triggers
+        // is enemy stuck in the fence
+        /*if (collidedObj.CompareTag("Fence"))
+        {
+            Debug.Log("in fence");  
+            rigidBody.constraints = RigidbodyConstraints.FreezeAll;
+        }
+        else
+        {
+            //Debug.Log("free move");
+            rigidBody.constraints = RigidbodyConstraints.None;
+        }*/
+
+        if (collidedObj == needleObj) {
             enemyHealth--;
             enemySFX.Play();
             ScoreScript.AddScore(1);
@@ -49,12 +64,12 @@ public class EnemyScript : MonoBehaviour
                 EnemyDeath();
             }
 
-        }else if(collision.gameObject == playerObj){
+        }else if(collidedObj == playerObj){
             //playerScript.DamagePlayer(1);
             //Debug.Log("we get here");
             playerObj.GetComponent<Rigidbody>().angularVelocity = Vector3.zero;
             playerObj.GetComponent<Player>().DamagePlayer(1);
-        }
+        }        
     }
 
     //this is jank but it's a game jam
@@ -104,10 +119,38 @@ public class EnemyScript : MonoBehaviour
         Destroy(enemyObj);
     }
 
+    /*protected void FlashRed()
+    {
+        //MeshRenderer renderer = GetComponent<MeshRenderer>();
+        //renderer.material.SetColor("_Color", Color.red);
+        Debug.Log("flashing red");
+
+        MeshRenderer renderer = GetComponent<MeshRenderer>();
+
+        //Debug.Log("materials: " + renderer.materials);        
+
+        Material solidColorMaterial = new Material(Shader.Find("Unlit/Color"));
+        solidColorMaterial.color = Color.red;
+
+        if (solidColorMaterial.shader == null)
+        {
+            Debug.LogError("Unlit/Color shader not found.");
+            return;
+        }
+
+        Material[] newMaterials = new Material[renderer.materials.Length];
+        for (int i = 0; i < newMaterials.Length; i++)
+        {
+            newMaterials[i] = solidColorMaterial;
+            Debug.Log($"Assigned new material with color {Color.red} to material slot {i}");
+        }
+        renderer.materials = newMaterials;
+    }*/
+
     protected void FacePlayer(){
-        Vector3 direction = (playerObj.transform.position - enemyObj.transform.position).normalized;
-        direction.y = 0;
-        enemyObj.transform.forward = direction;
+    Vector3 direction = (playerObj.transform.position - enemyObj.transform.position).normalized;
+    direction.y = 0;
+    enemyObj.transform.forward = direction;
     }
 
     protected void Move(){

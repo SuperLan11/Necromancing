@@ -10,11 +10,15 @@ public class ZombieScript : EnemyScript
         enemyHealth = 5;
         enemyMovementSpeed = 1f;
         playerObj = GameObject.Find("Player");
+
+        //FlashRed();
     }
 
     // Update is called once per frame
     void Update()
     {
+        //FlashRed();
+
         if (isSpawning)
         {
             summonTimer += Time.deltaTime;
