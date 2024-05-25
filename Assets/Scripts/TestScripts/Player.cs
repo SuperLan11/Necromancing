@@ -11,14 +11,21 @@ public class Player : MonoBehaviour
     public float speed = 5f; // Speed at which the object moves
     [SerializeField] private Rigidbody rb;
 
-    [SerializeField] private Image heart1;
-    [SerializeField] private Image heart2;
-    [SerializeField] private Image heart3;
+    private GameObject playerObj;
+
+    private Image heart1;
+    private Image heart2;
+    private Image heart3;
+
+    [SerializeField] private AudioSource damage_SFX;
 
     private Image[] heartArr = {null, null, null};
 
     private int playerHealth = 3;
     private int maxPlayerHP = 3;
+
+    private float keyDoorTextRange = 10;
+    [SerializeField] private GameObject doorText;
 
     // Define isometric movement vectors
     private Vector3 isometricRight = new Vector3(1, 0, 1).normalized;
@@ -31,18 +38,34 @@ public class Player : MonoBehaviour
             playerHealth = int.MaxValue;
         }
 
+        AssignHearts();
+
         heartArr[0] = heart1;
         heartArr[1] = heart2;
         heartArr[2] = heart3;
 
         GameObject heart = GameObject.Find("Heart1");
         Debug.Log("heart1: " + heart);
+
+        playerObj = GameObject.Find("Player");
+
+        doorText = GameObject.Find("DoorText");
+        doorText.SetActive(false);
+
+        damage_SFX = GameObject.Find("playerDamage_SFX").GetComponent<AudioSource>();
+    }
+
+    void AssignHearts()
+    {
+        heart1 = GameObject.Find("Heart1").GetComponent<Image>();
+        heart2 = GameObject.Find("Heart2").GetComponent<Image>();
+        heart3 = GameObject.Find("Heart3").GetComponent<Image>();
     }
 
     //this is all ChatGPT BS, but Unity's input system is stupid so I don't care.
     void Update()
     {
-
+        CheckKeyText();
         // Initialize a new velocity vector
         Vector3 newVelocity = Vector3.zero;
 
@@ -67,12 +90,36 @@ public class Player : MonoBehaviour
         rb.velocity = newVelocity;
     }
 
+    private void CheckKeyText()
+    {
+        GameObject doorObj = GameObject.Find("KeyDoor");
+        //Debug.Log("player: " + playerObj);
+        //Debug.Log("door: " + doorObj);
+        
+        float distance = Vector3.Distance(playerObj.transform.position, doorObj.transform.position);
+        
+        if (distance < keyDoorTextRange)
+        {            
+            doorText.SetActive(true);
+        }
+        else
+        {            
+            doorText.SetActive(false);
+        }
+    }
+
     private void OnCollisionEnter(Collision collision)
     {        
         GameObject portal = GameObject.Find("Portal");
-        if(collision.gameObject == portal)
+        GameObject keyDoor = GameObject.Find("KeyDoor");
+
+        if (collision.gameObject == portal)
         {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);            
+            playerHealth = maxPlayerHP;
+        }
+        else if (collision.gameObject == keyDoor)
+        {            
             playerHealth = maxPlayerHP;
         }
     }
@@ -80,6 +127,8 @@ public class Player : MonoBehaviour
     public void DamagePlayer(int damage){
         playerHealth -= damage;
         //Debug.Log(playerHealth);
+
+        damage_SFX.Play();
 
         if(playerHealth <= 0){
             //reloads current level
