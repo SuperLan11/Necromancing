@@ -13,6 +13,8 @@ public class SkeletonScript : EnemyScript
         enemySFX = GameObject.Find("SkeleHit_SFX").GetComponent<AudioSource>();        
         enemyMovementSpeed = 10f;
         playerObj = GameObject.Find("Player");
+
+        sightRange = 30f;
     }
 
     // Update is called once per frame

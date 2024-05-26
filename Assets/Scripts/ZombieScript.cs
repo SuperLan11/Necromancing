@@ -8,12 +8,14 @@ public class ZombieScript : EnemyScript
     void Start()
     {
         enemyHealth = 5;
-        enemyMovementSpeed = 1f;
+        enemyMovementSpeed = 3f;
         playerObj = GameObject.Find("Player");
 
         enemySFX = GameObject.Find("ZombVampHit_SFX").GetComponent<AudioSource>();
 
         //FlashRed();
+
+        sightRange = 30f;
     }
 
     // Update is called once per frame

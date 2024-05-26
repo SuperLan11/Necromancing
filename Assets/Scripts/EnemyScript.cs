@@ -16,6 +16,8 @@ public class EnemyScript : MonoBehaviour
     protected int enemyHealth;
     protected float enemyMovementSpeed;
 
+    protected float sightRange;
+
     //the fact that I have to do it this way makes me think Unity's parents are cousins
     protected Player playerScript;
 
@@ -201,8 +203,13 @@ public class EnemyScript : MonoBehaviour
     }
 
     protected void Move(){
-        FacePlayer();
-        enemyObj.GetComponent<Rigidbody>().velocity = enemyObj.transform.forward * enemyMovementSpeed;
+        float distance = Vector3.Distance(playerObj.transform.position, transform.position);
+
+        if (distance < sightRange)
+        {            
+            FacePlayer();
+            enemyObj.GetComponent<Rigidbody>().velocity = enemyObj.transform.forward * enemyMovementSpeed;
+        }
     }
 
 

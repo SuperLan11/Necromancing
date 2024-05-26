@@ -18,12 +18,12 @@ public class VampireScript : EnemyScript
 
     public VampireState state;
     
-    private const float MAX_MOVEMENT_TIMER = 1f;
+    private const float MAX_MOVEMENT_TIMER = 1.5f;
     private const float MAX_FIRST_COOLDOWN_TIMER = 1f, MAX_SECOND_COOLDOWN_TIMER = 1f;
 
     private float movementTimer, firstCooldownTimer, secondCooldownTimer;
 
-    private const float SLOW_SPEED = 3f, FAST_SPEED = 20f;
+    private const float SLOW_SPEED = 5f, FAST_SPEED = 18f;
 
     private bool needsToChangeDirection = true;
     
@@ -43,6 +43,8 @@ public class VampireScript : EnemyScript
         playerObj = GameObject.Find("Player");        
 
         enemySFX = GameObject.Find("ZombVampHit_SFX").GetComponent<AudioSource>();
+
+        sightRange = 30f;
     }
 
     // Update is called once per frame
@@ -68,9 +70,14 @@ public class VampireScript : EnemyScript
             transform.position = raisedPosition;
 
             return;
-        }        
+        }
 
-        VampireState initialState = state;
+        float distance = Vector3.Distance(playerObj.transform.position, transform.position);
+
+        if (distance > sightRange)        
+            return;        
+
+            VampireState initialState = state;
         
         //Don't put return statements cause it screws with debugging
         if (state == VampireState.MOVING){
