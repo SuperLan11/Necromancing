@@ -6,7 +6,7 @@ public class NecromancerScript: EnemyScript
 {    
     private float spawnTimer = 0;
     // in seconds
-    private float timeToSpawn = 1.3f;    
+    private float timeToSpawn = 2.2f;    
     AudioSource spawnSFX;
     private bool spawnLeft = true;
 
@@ -26,7 +26,7 @@ public class NecromancerScript: EnemyScript
     // Start is called before the first frame update
     void Start()
     {
-        enemySFX = GameObject.Find("SkeletonHit_SFX").GetComponent<AudioSource>();
+        enemySFX = GameObject.Find("SkeleHit_SFX").GetComponent<AudioSource>();
         spawnSFX = GameObject.Find("enemySpawn_SFX").GetComponent<AudioSource>();
 
         playerObj = GameObject.Find("Player");
@@ -39,8 +39,7 @@ public class NecromancerScript: EnemyScript
         enemyTypes[1] = zombiePrefab;
         enemyTypes[2] = vampirePrefab;
     }
-
-    // wip
+    
     void SpawnEnemy(int enemyIdentifier)
     {
         Vector3 enemyLoc = new Vector3(this.transform.position.x, this.transform.position.y, this.transform.position.z);
@@ -48,11 +47,11 @@ public class NecromancerScript: EnemyScript
         // alternate the position of spawned enemy from left to right of necromancer
         if (spawnLeft)
         {
-            enemyLoc.x -= 10;
+            enemyLoc.z -= 10;
         }
         else
         {
-            enemyLoc.x += 10;
+            enemyLoc.z += 10;
         }
         spawnLeft = !spawnLeft;
 
@@ -76,7 +75,7 @@ public class NecromancerScript: EnemyScript
 
         // once enemy is spawning, prevent their movement, increase y from -5 to 5 (hard code), then allow movement                        
         GameObject enemyObj = Instantiate(enemyTypes[enemyIdentifier], enemyLoc, Quaternion.identity);
-        enemyObj.GetComponent<EnemyScript>().isSpawning = true;        
+        enemyObj.GetComponent<EnemyScript>().isSpawning = true;   
     }
 
     // Update is called once per frame

@@ -11,6 +11,8 @@ public class ZombieScript : EnemyScript
         enemyMovementSpeed = 1f;
         playerObj = GameObject.Find("Player");
 
+        enemySFX = GameObject.Find("ZombVampHit_SFX").GetComponent<AudioSource>();
+
         //FlashRed();
     }
 

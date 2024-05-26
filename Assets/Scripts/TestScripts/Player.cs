@@ -13,6 +13,12 @@ public class Player : MonoBehaviour
 
     private GameObject playerObj;
 
+    [SerializeField] private AudioSource keyCollect_SFX;
+    [SerializeField] private AudioSource doorOpen_SFX;
+
+    private bool hasKey = false;
+    private bool doorOpened = false;
+
     private Image heart1;
     private Image heart2;
     private Image heart3;
@@ -42,17 +48,16 @@ public class Player : MonoBehaviour
 
         heartArr[0] = heart1;
         heartArr[1] = heart2;
-        heartArr[2] = heart3;
-
-        GameObject heart = GameObject.Find("Heart1");
-        Debug.Log("heart1: " + heart);
+        heartArr[2] = heart3;        
 
         playerObj = GameObject.Find("Player");
 
         doorText = GameObject.Find("DoorText");
         doorText.SetActive(false);
 
-        damage_SFX = GameObject.Find("playerDamage_SFX").GetComponent<AudioSource>();
+        damage_SFX = GameObject.Find("takeDamage_SFX").GetComponent<AudioSource>();
+        keyCollect_SFX = GameObject.Find("keyCollect_SFX").GetComponent<AudioSource>();
+        doorOpen_SFX = GameObject.Find("doorOpen_SFX").GetComponent<AudioSource>();
     }
 
     void AssignHearts()
@@ -66,6 +71,7 @@ public class Player : MonoBehaviour
     void Update()
     {
         CheckKeyText();
+        CheckKeyCollision();
         // Initialize a new velocity vector
         Vector3 newVelocity = Vector3.zero;
 
@@ -87,15 +93,18 @@ public class Player : MonoBehaviour
             newVelocity += isometricRight * speed;
         }
 
-        rb.velocity = newVelocity;
+        rb.velocity = newVelocity;        
     }
 
     private void CheckKeyText()
     {
-        GameObject doorObj = GameObject.Find("KeyDoor");
-        //Debug.Log("player: " + playerObj);
-        //Debug.Log("door: " + doorObj);
-        
+        if (hasKey)
+            return;
+
+        GameObject doorObj = GameObject.Find("KeyDoor");        
+        if (doorObj == null)
+            return;
+
         float distance = Vector3.Distance(playerObj.transform.position, doorObj.transform.position);
         
         if (distance < keyDoorTextRange)
@@ -109,22 +118,43 @@ public class Player : MonoBehaviour
     }
 
     private void OnCollisionEnter(Collision collision)
-    {        
-        GameObject portal = GameObject.Find("Portal");
+    {
+        GameObject portal = GameObject.Find("Portal");        
         GameObject keyDoor = GameObject.Find("KeyDoor");
 
+        //Debug.Log("key(clone): " + key);
         if (collision.gameObject == portal)
         {
-            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);            
+            SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
             playerHealth = maxPlayerHP;
+        }       
+        else if (collision.gameObject == keyDoor && hasKey)
+        {
+            collision.gameObject.SetActive(false);
+            hasKey = false;
+            doorOpen_SFX.Play();            
         }
-        else if (collision.gameObject == keyDoor)
-        {            
-            playerHealth = maxPlayerHP;
-        }
+    }    
+
+    // check distance to key instead of using collider to prevent jitter since key is solid
+    private void CheckKeyCollision()
+    {
+        GameObject key = GameObject.Find("KeyMesh");
+        if(key == null)       
+            return;
+        
+        float distance = Vector3.Distance(playerObj.transform.position, key.transform.position);
+        Debug.Log("distance: " + distance);
+
+        if (distance < 3f)
+        {
+            Destroy(key);
+            hasKey = true;
+            keyCollect_SFX.Play();            
+        }                
     }
 
-    public void DamagePlayer(int damage){
+        public void DamagePlayer(int damage){
         playerHealth -= damage;
         //Debug.Log(playerHealth);
 

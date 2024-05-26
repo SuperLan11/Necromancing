@@ -11,6 +11,8 @@ public class EnemyScript : MonoBehaviour
     public GameObject enemyObj;
     public AudioSource enemySFX;
 
+    [SerializeField] private GameObject keyPrefab;
+
     protected int enemyHealth;
     protected float enemyMovementSpeed;
 
@@ -29,36 +31,48 @@ public class EnemyScript : MonoBehaviour
     {
         //playerObj = GameObject.Find("Player");        
         playerScript = playerObj.GetComponent<Player>();
+        keyPrefab = GameObject.Find("Key");
+    }
+
+    private void onCollisionEnter(Collision collision)
+    {
+        GameObject needleObj = GameObject.Find("Needle");
+        GameObject collidedObj = collision.gameObject;
+
+        if (collidedObj == needleObj)
+        {
+            enemyHealth--;
+            enemySFX.Play();
+
+            Debug.Log("needle hit");
+
+            //Debug.Log("vampire took damage");
+
+            if (enemyHealth <= 0)
+            {
+                EnemyDeath();
+            }
+        }
     }
 
     private void OnTriggerEnter(Collider collision)
     {
         //prevents vampire immediately killing player when teleporting
         if (VampireInstaKill()){
-            Debug.Log(GetState());
+            //Debug.Log(GetState());
             return;
         }
 
         GameObject needleObj = GameObject.Find("Needle");
-        GameObject collidedObj = collision.gameObject;        
-
-        // force the enemy to stop upon hitting wall since they're both triggers
-        // is enemy stuck in the fence
-        /*if (collidedObj.CompareTag("Fence"))
-        {
-            Debug.Log("in fence");  
-            rigidBody.constraints = RigidbodyConstraints.FreezeAll;
-        }
-        else
-        {
-            //Debug.Log("free move");
-            rigidBody.constraints = RigidbodyConstraints.None;
-        }*/
+        GameObject collidedObj = collision.gameObject;
 
         if (collidedObj == needleObj) {
             enemyHealth--;
             enemySFX.Play();
-            ScoreScript.AddScore(1);
+
+            Debug.Log("needle hit");
+
+            //Debug.Log("vampire took damage");
 
             if(enemyHealth <= 0){
                 EnemyDeath();
@@ -77,7 +91,7 @@ public class EnemyScript : MonoBehaviour
     {
         //prevents vampire immediately killing player when teleporting
         if (VampireInstaKill()){
-            Debug.Log(GetState());
+            //Debug.Log(GetState());
             return;
         }
         
@@ -90,9 +104,10 @@ public class EnemyScript : MonoBehaviour
             if (collision.gameObject == needleObj) {
                 enemyHealth--;
                 enemySFX.Play();
-                ScoreScript.AddScore(1);
 
-                if(enemyHealth <= 0){
+                Debug.Log("needle hit");
+
+                if (enemyHealth <= 0){
                     EnemyDeath();
                 }
 
@@ -115,7 +130,39 @@ public class EnemyScript : MonoBehaviour
         
     }
 
+    private bool IsLastEnemy()
+    {
+        GameObject[] sceneObjects = GameObject.FindObjectsOfType<GameObject>();
+        List<GameObject> enemies = new List<GameObject>();
+
+        foreach (GameObject obj in sceneObjects)
+        {
+            bool isSkeleton = obj.name.Contains("Skeleton");
+            bool isZombie = obj.name.Contains("Zombie");
+            bool isVampire = obj.name.Contains("Vampire");
+            bool isNecromancer = obj.name.Contains("Necromancer");
+
+            if (isSkeleton || isZombie || isVampire || isNecromancer)
+            {
+                enemies.Add(obj);
+            }
+        }
+
+        if(enemies.Count == 1)
+        {
+            return true;
+        }
+        return false;
+    }
+
     void EnemyDeath(){
+        
+        if(IsLastEnemy())
+        {
+            Vector3 offsetTransform = transform.position;
+            offsetTransform.y += 3;
+            Instantiate(keyPrefab, offsetTransform, Quaternion.identity);
+        }
         Destroy(enemyObj);
     }
 

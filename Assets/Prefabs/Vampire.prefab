@@ -120,6 +120,7 @@ MonoBehaviour:
   playerObj: {fileID: 0}
   enemyObj: {fileID: 7097276650429088999}
   enemySFX: {fileID: 0}
+  keyPrefab: {fileID: 443326359296421748, guid: 44e6ea573819e2c43bc55f18580a6dc9, type: 3}
   isSpawning: 0
   state: 0
 --- !u!54 &4880773474505485431

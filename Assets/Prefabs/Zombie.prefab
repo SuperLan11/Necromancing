@@ -161,6 +161,7 @@ MonoBehaviour:
   playerObj: {fileID: 0}
   enemyObj: {fileID: 5428259044823009278}
   enemySFX: {fileID: 0}
+  keyPrefab: {fileID: 443326359296421748, guid: 44e6ea573819e2c43bc55f18580a6dc9, type: 3}
   isSpawning: 0
 --- !u!54 &2754722216430345613
 Rigidbody:
@@ -187,7 +188,7 @@ Rigidbody:
   m_UseGravity: 0
   m_IsKinematic: 0
   m_Interpolate: 0
-  m_Constraints: 36
+  m_Constraints: 116
   m_CollisionDetection: 0
 --- !u!137 &6454980428412692607
 SkinnedMeshRenderer:

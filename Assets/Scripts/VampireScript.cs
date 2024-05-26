@@ -18,8 +18,8 @@ public class VampireScript : EnemyScript
 
     public VampireState state;
     
-    private const float MAX_MOVEMENT_TIMER = 3f;
-    private const float MAX_FIRST_COOLDOWN_TIMER = 1.5f, MAX_SECOND_COOLDOWN_TIMER = 1.0f;
+    private const float MAX_MOVEMENT_TIMER = 1f;
+    private const float MAX_FIRST_COOLDOWN_TIMER = 1f, MAX_SECOND_COOLDOWN_TIMER = 1f;
 
     private float movementTimer, firstCooldownTimer, secondCooldownTimer;
 
@@ -30,18 +30,19 @@ public class VampireScript : EnemyScript
     // Start is called before the first frame update
     void Start()
     {
+        enemyHealth = 3;
+
         movementTimer = MAX_MOVEMENT_TIMER;
         firstCooldownTimer = MAX_FIRST_COOLDOWN_TIMER;
         secondCooldownTimer = MAX_SECOND_COOLDOWN_TIMER;
-        
-        enemyHealth = 3;
+                
         enemyMovementSpeed = SLOW_SPEED;
 
         state = VampireState.MOVING;
         
         playerObj = GameObject.Find("Player");        
 
-        enemySFX = GameObject.Find("SkeletonHit_SFX").GetComponent<AudioSource>();
+        enemySFX = GameObject.Find("ZombVampHit_SFX").GetComponent<AudioSource>();
     }
 
     // Update is called once per frame
@@ -67,7 +68,7 @@ public class VampireScript : EnemyScript
             transform.position = raisedPosition;
 
             return;
-        }
+        }        
 
         VampireState initialState = state;
         
@@ -89,7 +90,7 @@ public class VampireScript : EnemyScript
         //teleporting is only for a single frame
         if (state == VampireState.TELEPORTING){
             //have logic here to tp vampire to player
-            float xOffset = Random.Range(-1.0f, 1.0f), zOffset = Random.Range(-1.0f, 1.0f);
+            float xOffset = Random.Range(-5.0f, 5.0f), zOffset = Random.Range(-5.0f, 5.0f);
             xOffset += playerObj.transform.position.x;
             zOffset += playerObj.transform.position.z;
 
