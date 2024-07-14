@@ -4,6 +4,9 @@ Our game for [Jame Gam #40](https://itch.io/jam/jame-gam-40) hosted by the Jame 
 
 The general concept for the game is the player using a floating needle to take down monsters in a graveyard. The boss of the game is a necromancer monster that can summon previously fought monsters.
 
+## How to Play the Game
+Click the green code button, download the ZIP, and extract the folder. Then open the Game folder in the extracted folder, and open RobotVsSwan.exe to start the game. The game can also be accessed on this itch page: https://gerzytet.itch.io/robot-vs-swan
+
 ## Assets Used
 
 ### Characters
