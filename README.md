@@ -7,6 +7,12 @@ The general concept for the game is the player using a floating needle to take d
 ## How to Play the Game
 Click the green code button, download the ZIP, and extract the folder. Then open the Game folder in the extracted folder, and open necromancing.exe to start the game. The game can also be accessed on this itch page: https://jaiocg.itch.io/necromancing
 
+## Team Contibutions
+-- Landon Johnson: Programmer and Level Designer
+-- Craig White: Composer
+-- Patrick Mayer: Programmer
+-- Jacob Paccione: Programmer
+
 ## Assets Used
 
 ### Characters
